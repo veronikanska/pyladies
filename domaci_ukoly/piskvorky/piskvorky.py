@@ -1,7 +1,5 @@
-# 1-D piskvorky, hraji se na radku s dvaceti policky. 
-# Hrac clovek ma krizky, pocitac ma kolecka. Kdo da tri sve symboly vedle sebe, vyhral.
-
-from random import randrange
+from util import tah
+from ai import tah_pocitace
 
 def vyhodnot(pole):
     'Dostane retezec 20 policek piskvorek a vrati retezec podle stavu hry.'
@@ -13,13 +11,6 @@ def vyhodnot(pole):
         return '!'
     else:   # hra neskoncila
         return '-'
-
-def tah(pole, pozice, symbol):
-    'Vrati herni pole se symbolem umistenym na danou pozici'
-    seznam = list(pole)     # Zapis do retezce pres seznam
-    seznam[pozice] = symbol
-    pole = ''.join(seznam)
-    return pole
 
 def tah_hrace(pole):
     'Zapise do pole tah hrace - vrati pole se zapsanym tahem.'
@@ -41,38 +32,6 @@ def tah_hrace(pole):
             break
     return tah(pole, pozice, symbol)
     
-def strategie(pole, n):
-    'Strategie, podle ktere pocitac vybira pozici pro sve znaky vedle svych existujicich znaku.'    # Rekurzivne, juhu!
-    try:
-        if n == pole.index('o') and pole[pole.index('o') + 1] != '-' and pole[pole.index('o') - 1] != '-':  
-            pozice = randrange(20)  
-            while pole[pozice] != '-':
-                pozice = randrange(20)
-        else:   # Jinak jedeme odzadu pole a zkousime, jestli je na indexu 'o' a jestli vedle nej je volne misto 
-            if pole[n] == 'o':
-                if pole[n + 1] == '-':
-                    pozice = pole.index('-', n)
-                elif pole[n - 1] == '-':
-                    pozice = pole.index('-', n - 1)    
-                else:
-                    return strategie(pole, n - 1)   # Pokud neni vedle 'o' volno, znova zavolame f. strategie s n - 1
-            else:
-                return strategie(pole, n - 1)   # Totez, pokud na indexu n neni 'o'
-    except IndexError:
-        return strategie(pole, n - 1)
-    return pozice
-
-def tah_pocitace(pole):
-    symbol = 'o'
-    if 'o' not in pole:     # prvni tah je nahodne cislo, jen nesmi pocitac slapnout na hracuv krizek
-        pozice = randrange(1, 19)
-        while pole[pozice] != '-':
-            pozice = randrange(1, 19)
-    else:
-        pozice = strategie(pole, 19)    # Pak jede podle strategie, pocitame s 19 policky
-    print('Tah pocitace: ', pozice)
-    return tah(pole, pozice, symbol)
-
 def piskvorky1d():
     pole = '-' * 20
     print('Zacinaji piskvorky!')
@@ -90,5 +49,3 @@ def piskvorky1d():
         print('Konec hry, pocitac vyhral.')
     elif stav == '!':
         print('Konec hry, remiza.')
-
-piskvorky1d()
