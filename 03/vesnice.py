@@ -19,6 +19,3 @@ for _ in range(10):
     forward(20)
 
 exitonclick()
-
-
-exitonclick()

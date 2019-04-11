@@ -1,14 +1,14 @@
 # Caesarova sifra, jupi!!!
 
-k = input('Klic: ')                                              # Zadame klic
-while len(k) != 1 or ord(k) not in range(48,58):                 # Pro zjednoduseni beru jen jednociferna cisla, jinak bych z toho delala seznam a projizdela for cyklem, jestli jsou vsechny prvky cislice
+k = input('Klic: ')
+while len(k) != 1 or ord(k) not in range(48,58):  # Pro zjednoduseni beru jen jednociferna cisla
     print('Klic je prirozene jedniciferne cislo: ')
     k = input('Klic: ')
-k = int(k)                                                       # Pokud je k cislice, prevedeme z retezce na cislo
+k = int(k)     # Pokud je k cislice, prevedeme z retezce na cislo
 
-plaintext = input('plaintext: ')                                 # Zadame plaintext a prevedeme na seznam
+plaintext = input('plaintext: ')   # Zadame plaintext a prevedeme na seznam
 p = list(plaintext)
-c = []                                                           # Nachystany seznam pro ciphertext
+c = []    # Nachystany seznam pro ciphertext
 
 # A ted projedeme seznam znaku plaintextu for cyklem - nalozi s nimy podle toho, jestli je to diakriticky znak, velke nebo male pismeno
 
