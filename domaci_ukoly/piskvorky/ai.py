@@ -1,13 +1,16 @@
 from random import randrange
-from util import tah, strategie
+import util
 
 def tah_pocitace(pole):
-    symbol = 'o'
-    if 'o' not in pole:     # prvni tah je nahodne cislo, ale od 1 do 18, at pak strategie nehazi chyby
+    if pole.count('o') > pole.count('x'):
+        symbol = 'x'
+    else:
+        symbol = 'o'
+    if symbol not in pole:     # prvni tah je nahodne cislo, ale od 1 do 18, at pak strategie nehazi chyby
         pozice = randrange(1, 19)
         while pole[pozice] != '-':
             pozice = randrange(1, 19)
     else:
-        pozice = strategie(pole, 19)    # Pak jede podle strategie
+        pozice = util.strategie(pole, 19, symbol)    # Pak jede podle strategie
     print('Tah pocitace: ', pozice)
-    return tah(pole, pozice, symbol)
+    return util.tah(pole, pozice, symbol)

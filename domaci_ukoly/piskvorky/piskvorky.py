@@ -1,5 +1,7 @@
-from util import tah
-from ai import tah_pocitace
+# Obsahuje funkce pro hru piskvorky: vyhodnot, tah_hrace, piskvorky1d
+
+import util
+import ai
 
 def vyhodnot(pole):
     'Dostane retezec 20 policek piskvorek a vrati retezec podle stavu hry.'
@@ -12,26 +14,32 @@ def vyhodnot(pole):
     else:   # hra neskoncila
         return '-'
 
+# Tah hrace se kvli inputu netestuje, je osekany o podminky, ty jsou ve funkci vklad nize. Ta se testuje.
 def tah_hrace(pole):
     'Zapise do pole tah hrace - vrati pole se zapsanym tahem.'
     symbol = 'x'
-    while True:
-        vklad = input('Zadej pozici, na kterou chces hrat: ')
-        try:
-            pozice = int(vklad)
-        except ValueError:
-            print('To neni cislo, zkus to znova.')
-            continue
-        if pozice not in range(0,20):
-            print('Zadej cele cislo od 0 do 19: ')
-            continue
-        elif pole[pozice] != '-':
-            print('Pozice je obsazena, vyber si jinou: ')
-            continue
-        else:
-            break
-    return tah(pole, pozice, symbol)
-    
+    cislo = input('Zadej pozici, na kterou chces hrat: ')
+    while vklad(pole, cislo) != True:
+        cislo = input('Zadej pozici, na kterou chces hrat: ')
+    pozice = int(cislo)
+    return util.tah(pole, pozice, symbol)
+
+def vklad(pole, cislo):
+    'Vyhodnoti vklad od hrace - jestli je to cislo v danem rozmezi a jestli je zadana pozice volna'
+    try:
+        pozice = int(cislo)
+    except ValueError:
+        print('To neni cislo, zkus to znova.')
+        return False
+    if pozice not in range(0,20):
+        print('Zadej cele cislo od 0 do 19: ')
+        return False
+    elif pole[pozice] != '-':
+        print('Pozice je obsazena, vyber si jinou: ')
+        return False
+    else:
+        return True
+
 def piskvorky1d():
     pole = '-' * 20
     print('Zacinaji piskvorky!')
@@ -40,7 +48,7 @@ def piskvorky1d():
         pole = tah_hrace(pole)
         print(pole)
         stav = vyhodnot(pole)
-        pole = tah_pocitace(pole)
+        pole = ai.tah_pocitace(pole)
         print(pole)
         stav = vyhodnot(pole)
     if stav == 'x':

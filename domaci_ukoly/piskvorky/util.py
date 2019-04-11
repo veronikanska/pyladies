@@ -7,23 +7,23 @@ def tah(pole, pozice, symbol):
     pole = ''.join(seznam)
     return pole
 
-def strategie(pole, n):
+def strategie(pole, n, symbol):
     'Strategie, podle ktere pocitac vybira pozici pro sve znaky vedle svych existujicich znaku.'    # Rekurzivne, juhu!
     try:
-        if n == pole.index('o') and pole[pole.index('o') + 1] != '-' and pole[pole.index('o') - 1] != '-':  
+        if n == pole.index(symbol) and pole[pole.index(symbol) + 1] != '-' and pole[pole.index(symbol) - 1] != '-':  
             pozice = randrange(20)  
             while pole[pozice] != '-':
                 pozice = randrange(20)
-        else:   # Jinak jedeme odzadu pole a zkousime, jestli je na indexu 'o' a jestli vedle nej je volne misto 
-            if pole[n] == 'o':
+        else:   # Jinak jedeme odzadu pole a zkousime, jestli je na indexu symbol a jestli vedle nej je volne misto 
+            if pole[n] == symbol:
                 if pole[n + 1] == '-':
                     pozice = pole.index('-', n)
                 elif pole[n - 1] == '-':
                     pozice = pole.index('-', n - 1)    
                 else:
-                    return strategie(pole, n - 1)   # Pokud neni vedle 'o' volno, znova zavolame f. strategie s n - 1
+                    return strategie(pole, n - 1, symbol)   # Pokud neni vedle symbol volno, znova zavolame f. strategie s n - 1
             else:
-                return strategie(pole, n - 1)   # Totez, pokud na indexu n neni 'o'
+                return strategie(pole, n - 1, symbol)   # Totez, pokud na indexu n neni symbol
     except IndexError:
-        return strategie(pole, n - 1)
+        return strategie(pole, n - 1, symbol)
     return pozice
