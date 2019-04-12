@@ -31,7 +31,7 @@ def vklad(pole, cislo):
     except ValueError:
         print('To neni cislo, zkus to znova.')
         return False
-    if pozice not in range(0,20):
+    if pozice not in range(0,len(pole)):
         print('Zadej cele cislo od 0 do 19: ')
         return False
     elif pole[pozice] != '-':
@@ -48,7 +48,7 @@ def piskvorky1d():
         pole = tah_hrace(pole)
         print(pole)
         stav = vyhodnot(pole)
-        pole = ai.tah_pocitace(pole)
+        pole = ai.tah_pocitace(pole, 'o')
         print(pole)
         stav = vyhodnot(pole)
     if stav == 'x':
