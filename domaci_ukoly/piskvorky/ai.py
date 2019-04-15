@@ -10,11 +10,11 @@ def tah_pocitace(pole, symbol):
         symbol = 'o'
     if '-' in pole:
         if symbol not in pole:     # prvni tah je nahodne cislo, ale od 1 do delky pole - 1, at pak strategie nehazi IndexError
-            pozice = randrange(1, len(pole) - 1)
+            pozice = randrange(1, len(pole) - 1)    # Praujeme s volitelnou delkou pole
             while pole[pozice] != '-':
                 pozice = randrange(1, len(pole) - 1)
         else:
-            if symbol == 'o':
+            if symbol == 'o':   # Tato cast je prehozeni symbolu, se kterym pracuje strategie - ted brani souperovi a skoro nejde porazit
                 znak = 'x'
             else:
                 znak = 'o'
@@ -24,8 +24,8 @@ def tah_pocitace(pole, symbol):
     print('Tah pocitace: ', pozice)
     return util.tah(pole, pozice, symbol)
 
-def strategie(pole, n, symbol):
-    'Strategie, podle ktere pocitac vybira pozici pro sve znaky vedle souperovych existujicich znaku.'    # Rekurzivne, juhu!
+def strategie(pole, n, symbol):     # Presunuto sem z modulu util
+    'Strategie, podle ktere pocitac vybira pozici pro sve znaky vedle existujicich znaku.'    # Rekurzivne, juhu!
     try:
         if n == pole.index(symbol) and pole[pole.index(symbol) + 1] != '-' and pole[pole.index(symbol) - 1] != '-':  
             pozice = randrange(20)  
