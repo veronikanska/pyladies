@@ -1,25 +1,20 @@
 # Program, ktery overi spravnost rodneho cisla a vypocita datum narozeni a pohlavi
 
 def format(rodne_cislo):
-    'Vyhodnoti, je-li rodne cislo napsano ve spravnem formatu: 11 znaku, 6 cislic, lomitko, 4 cislice'
+    'Vyhodnoti, je-li rodne cislo napsano ve spravnem formatu: 11 znaku, 6 cislic, lomitko, 4 cislice, delitelnost 11'
     if len(rodne_cislo) != 11:
         return False
     elif rodne_cislo[6] != '/':
         return False
-    rc = ''.join(rodne_cislo.split('/'))
-    for n in range(0,9):
-        if ord(rc[n]) in range(48,58):
+    try:
+        rc = int(''.join(rodne_cislo.split('/')))
+    except ValueError:
+        return False
+    else:
+        if rc % 11 == 0:
             return True
         else:
             return False
-
-def delitelnost(rodne_cislo):
-    'Vyhodnoti, je-li rodne cislo delitelne 11'
-    rc = int(''.join(rodne_cislo.split('/')))
-    if rc % 11 == 0:
-        return True
-    else:
-        return False
 
 def datum_narozeni(rodne_cislo):
     'Vrati z rodneho cisla tuple tri cisel: den, mesic a rok narozeni'
@@ -44,7 +39,7 @@ def pohlavi(rodne_cislo):
 
 # Tady zacina kod samotneho programu s vyuzitim funkci definovanych vyse
 rodne_cislo = input('Napis rodne cislo: ')
-while format(rodne_cislo) == False or delitelnost(rodne_cislo) == False:
+while format(rodne_cislo) == False:
     print('Rodne cislo ma spatny format.')
     rodne_cislo = input('Napis rodne cislo: ')
 
