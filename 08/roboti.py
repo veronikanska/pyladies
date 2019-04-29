@@ -126,5 +126,5 @@ zomb = Zombie()
 luck = Lucky()
 
 
-war = War(aggr, luck)
-war.battle(5)
+war = War(deff, luck)
+war.battle(4)
