@@ -1,3 +1,5 @@
+# Modul with predefined classes of different kinds of robots with special features.
+
 from random import randrange
 
 class Robot():
@@ -60,7 +62,6 @@ class Defensive(Robot):
         self._take_damage(damage // 2)
 
 class Zombie(Robot):
-
     def __init__(self, name):
         super().__init__(name)
         self.name = 'Zombie {}'.format(name)
@@ -70,7 +71,6 @@ class Zombie(Robot):
         return True
 
 class Lucky(Robot):
-
     def __init__(self, name):
         super().__init__(name)
         self.name = 'Lucky {}'.format(name)
